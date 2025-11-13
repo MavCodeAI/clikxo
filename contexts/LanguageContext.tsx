@@ -6,7 +6,7 @@ import { Language, translations } from '@/lib/translations'
 type LanguageContextType = {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: keyof typeof translations.ar) => string
+  t: typeof translations.ar | typeof translations.en
   isRTL: boolean
 }
 
@@ -36,9 +36,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     document.body.classList.add(language === 'ar' ? 'arabic' : 'english')
   }, [language])
 
-  const t = (key: keyof typeof translations.ar): string => {
-    return translations[language][key] || translations.ar[key]
-  }
+  const t = translations[language]
 
   const isRTL = language === 'ar'
 
