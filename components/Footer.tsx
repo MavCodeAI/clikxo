@@ -22,17 +22,17 @@ export default function Footer() {
           <div className="text-center md:text-right">
             <h3 className="text-2xl font-bold text-primary-500 mb-2">CLIKXO</h3>
             <p className="text-caption font-mono text-neutral-500">
-              © {currentYear} Clikxo Studio. {t.footerRights}
+              © {currentYear} Clikxo Studio. {t('footerRights')}
             </p>
           </div>
 
           {/* Credits */}
           <div className="text-center">
             <p className="text-body font-mono text-neutral-500 mb-2">
-              {t.madeWithLove} <span className="text-primary-500">♥</span> {t.madeInUAE}
+              {t('madeWithLove')} <span className="text-primary-500">♥</span> {t('madeInUAE')}
             </p>
             <p className="text-caption font-mono text-neutral-500">
-              {t.teamCredits}
+              {t('teamCredits')}
             </p>
           </div>
 

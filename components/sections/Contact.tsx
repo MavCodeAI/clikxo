@@ -40,20 +40,20 @@ export default function Contact() {
   const contactMethods = [
     {
       icon: Mail,
-      label: t.emailMethod,
+      label: t('emailMethod'),
       value: 'hello@clikxo.com',
       href: 'mailto:hello@clikxo.com',
     },
     {
       icon: Phone,
-      label: t.phoneMethod,
+      label: t('phoneMethod'),
       value: '+971 XX XXX XXXX',
       href: 'tel:+971xxxxxxxxx',
     },
     {
       icon: MessageCircle,
-      label: t.whatsappMethod,
-      value: t.whatsappContact,
+      label: t('whatsappMethod'),
+      value: t('whatsappContact'),
       href: 'https://wa.me/971xxxxxxxxx',
     },
   ]
@@ -73,13 +73,13 @@ export default function Contact() {
           {/* Section Title */}
           <div className="text-center mb-xl">
             <h2 className="text-h2 font-bold text-neutral-200 mb-4">
-              <span className="text-primary-500">{t.contactTitle}</span> {t.contactTitleHighlight}
+              <span className="text-primary-500">{t('contactTitle')}</span> {t('contactTitleHighlight')}
             </h2>
             <p className="text-h3 font-bold text-neutral-200 max-w-3xl mx-auto mb-2">
-              {t.contactQuote}
+              {t('contactQuote')}
             </p>
             <p className="text-body font-mono text-neutral-500 max-w-2xl mx-auto">
-              {t.contactDescription}
+              {t('contactDescription')}
             </p>
           </div>
 
@@ -95,7 +95,7 @@ export default function Contact() {
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-ui font-mono text-neutral-200 mb-2">
-                    {t.nameLabel}
+                    {t('nameLabel')}
                   </label>
                   <input
                     type="text"
@@ -105,14 +105,14 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full bg-transparent border-b border-neutral-500 py-4 text-body font-mono text-neutral-200 focus:border-primary-500 focus:shadow-glow-input focus:outline-none transition-all"
-                    placeholder={t.namePlaceholder}
+                    placeholder={t('namePlaceholder')}
                   />
                 </div>
 
                 {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-ui font-mono text-neutral-200 mb-2">
-                    {t.emailLabel}
+                    {t('emailLabel')}
                   </label>
                   <input
                     type="email"
@@ -122,14 +122,14 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full bg-transparent border-b border-neutral-500 py-4 text-body font-mono text-neutral-200 focus:border-primary-500 focus:shadow-glow-input focus:outline-none transition-all"
-                    placeholder={t.emailPlaceholder}
+                    placeholder={t('emailPlaceholder')}
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
                   <label htmlFor="phone" className="block text-ui font-mono text-neutral-200 mb-2">
-                    {t.phoneLabel}
+                    {t('phoneLabel')}
                   </label>
                   <input
                     type="tel"
@@ -138,14 +138,14 @@ export default function Contact() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-neutral-500 py-4 text-body font-mono text-neutral-200 focus:border-primary-500 focus:shadow-glow-input focus:outline-none transition-all"
-                    placeholder={t.phonePlaceholder}
+                    placeholder={t('phonePlaceholder')}
                   />
                 </div>
 
                 {/* Message */}
                 <div>
                   <label htmlFor="message" className="block text-ui font-mono text-neutral-200 mb-2">
-                    {t.messageLabel}
+                    {t('messageLabel')}
                   </label>
                   <textarea
                     id="message"
@@ -155,7 +155,7 @@ export default function Contact() {
                     required
                     rows={5}
                     className="w-full bg-transparent border-b border-neutral-500 py-4 text-body font-mono text-neutral-200 focus:border-primary-500 focus:shadow-glow-input focus:outline-none transition-all resize-none"
-                    placeholder={t.messagePlaceholder}
+                    placeholder={t('messagePlaceholder')}
                   ></textarea>
                 </div>
 
@@ -166,10 +166,10 @@ export default function Contact() {
                   className="w-full bg-primary-500 text-neutral-1000 px-8 py-4 text-ui font-mono font-medium hover:scale-105 active:scale-95 transition-all shadow-glow-cyan hover:shadow-glow-violet flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === 'success' ? (
-                    t.sentSuccess
+                    t('sentSuccess')
                   ) : (
                     <>
-                      {t.sendMessage}
+                      {t('sendMessage')}
                       <Send size={18} />
                     </>
                   )}
@@ -182,7 +182,7 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-success-500 text-ui font-mono text-center"
                   >
-                    {t.successMessage}
+                    {t('successMessage')}
                   </motion.p>
                 )}
               </form>
@@ -229,10 +229,10 @@ export default function Contact() {
                 className="glass-panel p-lg bg-gradient-to-br from-primary-500/10 to-secondary-500/10"
               >
                 <h3 className="text-h3 font-bold text-neutral-200 mb-4">
-                  {t.readyToStart} <span className="text-primary-500">{t.readyToStartHighlight}</span>
+                  {t('readyToStart')} <span className="text-primary-500">{t('readyToStartHighlight')}</span>
                 </h3>
                 <p className="text-body font-mono text-neutral-500 mb-6 leading-relaxed">
-                  {t.readyToStartText}
+                  {t('readyToStartText')}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
@@ -242,14 +242,14 @@ export default function Contact() {
                     className="inline-flex items-center gap-2 bg-primary-500 text-neutral-1000 px-6 py-3 text-ui font-mono font-medium hover:scale-105 transition-transform"
                   >
                     <MessageCircle size={18} />
-                    {t.whatsapp}
+                    {t('whatsapp')}
                   </a>
                   <a
                     href="mailto:hello@clikxo.com"
                     className="inline-flex items-center gap-2 border border-primary-500 text-primary-500 px-6 py-3 text-ui font-mono font-medium hover:bg-primary-500 hover:text-neutral-1000 transition-all"
                   >
                     <Mail size={18} />
-                    {t.emailBtn}
+                    {t('emailBtn')}
                   </a>
                 </div>
               </motion.div>
