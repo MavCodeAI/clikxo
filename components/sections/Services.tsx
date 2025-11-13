@@ -72,7 +72,7 @@ export default function Services() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as const,
       },
     },
   }
@@ -142,14 +142,14 @@ export default function Services() {
 
                   {/* Title & Description */}
                   <h3 className="text-h3 font-bold text-neutral-200 mb-2 group-hover:text-primary-500 transition-colors">
-                    {t(`${service.id}`)}
+                    {t(service.id as any)}
                   </h3>
                   <p className="text-caption font-mono text-neutral-500 mb-4 uppercase tracking-wider">
-                    {t(`${service.id}En`)}
+                    {t((service.id + 'En') as any)}
                   </p>
 
                   <p className="text-body font-mono text-neutral-500 mb-6 leading-relaxed">
-                    {t(`${service.id}Description`)}
+                    {t((service.id + 'Description') as any)}
                   </p>
 
                   {/* Enhanced Features with Animation */}
