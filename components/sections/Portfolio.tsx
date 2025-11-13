@@ -17,7 +17,7 @@ if (typeof window !== 'undefined') {
 
 
 export default function Portfolio() {
-  const { language, t } = useLanguage()
+  const { t } = useLanguage()
   
   const [activeCategory, setActiveCategory] = useState(t('filterAll'))
   const [ref, inView] = useInView({
@@ -202,10 +202,10 @@ export default function Portfolio() {
                 {/* Content */}
                 <div className="p-md">
                   <h3 className="text-h3 font-bold text-neutral-200 mb-2 group-hover:text-primary-500 transition-colors">
-                    {language === 'ar' ? project.title : project.titleEn}
+                    {project.title}
                   </h3>
                   <p className="text-caption font-mono text-neutral-500 mb-3 uppercase">
-                    {language === 'ar' ? project.titleEn : project.title}
+                    {project.title}
                   </p>
                   <p className="text-body font-mono text-neutral-500 mb-4">
                     {project.description}

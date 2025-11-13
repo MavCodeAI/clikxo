@@ -51,19 +51,40 @@ export default function LoadingScreen() {
               transition={{ duration: 0.8 }}
               className="mb-8"
             >
-              <div className="flex justify-center gap-1">
-                {'CLIKXO'.split('').map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="text-4xl md:text-6xl font-bold text-primary-500 glow-text"
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
+              <div className="flex justify-center items-center gap-4">
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  className="text-3xl opacity-60"
+                >
+                  ⚡
+                </motion.span>
+                <div className="flex justify-center gap-1">
+                  {'CLIKXO'.split('').map((letter, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ y: 50, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="text-4xl md:text-6xl font-bold text-primary-500 glow-text"
+                      style={{
+                        textShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
+                        filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))',
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+                className="text-body font-mono text-neutral-400 mt-4"
+              >
+                Creative Digital Studio
+              </motion.p>
             </motion.div>
 
             {/* Progress Bar */}

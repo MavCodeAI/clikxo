@@ -112,8 +112,8 @@ export default function Hero() {
       </div>
 
       {/* Enhanced Content */}
-      <div className="container-custom relative z-10 text-center py-xxl">
-        {/* Enhanced Logo/Brand */}
+      <div className="container-custom relative z-10 py-xxl">
+        {/* Enhanced Logo/Brand - Left Positioned */}
         <motion.div
           custom={-1}
           initial="hidden"
@@ -121,30 +121,32 @@ export default function Hero() {
           variants={textVariants}
           className="mb-12"
         >
-          <div className="flex justify-center mb-6">
-            <motion.span
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="text-2xl opacity-60 mr-3"
-            >
-              ⚡
-            </motion.span>
-            <motion.h1
-              className="text-4xl md:text-6xl font-bold text-primary-500 glow-text"
-              style={{
-                textShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
-                filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))',
-              }}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              CLIKXO
-            </motion.h1>
+          <div className="flex justify-start mb-6">
+            <div className="flex items-center gap-4">
+              <motion.span
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                className="text-2xl opacity-60"
+              >
+                ⚡
+              </motion.span>
+              <motion.h1
+                className="text-4xl md:text-6xl font-bold text-primary-500 glow-text"
+                style={{
+                  textShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
+                  filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))',
+                }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                CLIKXO
+              </motion.h1>
+            </div>
           </div>
 
           {/* Tagline */}
           <motion.p
-            className="text-body font-mono text-neutral-400 max-w-2xl mx-auto"
+            className="text-body font-mono text-neutral-400 max-w-2xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
@@ -153,88 +155,91 @@ export default function Hero() {
           </motion.p>
         </motion.div>
 
-        {/* Enhanced Main Headline */}
-        <motion.h1
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={textVariants}
-          className="floating-element text-h2 md:text-hero font-bold text-neutral-200 mb-6 max-w-5xl mx-auto leading-tight relative"
-        >
-          <span className="relative z-10">
-            We don't build websites, we create digital dimensions
-            <br />
-            <motion.span
-              className="text-primary-500 relative inline-block cursor-hover"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              Where design meets code as art and science
-              <motion.div
-                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-            </motion.span>
-          </span>
-
-          {/* Background Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-secondary-500/10 blur-3xl -z-10"></div>
-        </motion.h1>
-
-        {/* Enhanced Subtitle */}
-        <motion.p
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={textVariants}
-          className="floating-element text-body md:text-h3 font-mono text-neutral-500 mb-12 max-w-3xl mx-auto leading-relaxed"
-        >
-          Clikxo — Designed by designers. Coded by engineers. Remembered by all.
-        </motion.p>
-
-        {/* Enhanced CTA Button */}
-        <motion.div
-          custom={2}
-          initial="hidden"
-          animate="visible"
-          variants={textVariants}
-          className="relative"
-        >
-          <motion.a
-            href="#contact"
-            className="relative inline-block bg-primary-500 text-neutral-1000 px-8 py-4 text-ui font-mono font-medium overflow-hidden cursor-hover"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
+        {/* Center Content */}
+        <div className="text-center">
+          {/* Enhanced Main Headline */}
+          <motion.h1
+            custom={0}
+            initial="hidden"
+            animate="visible"
+            variants={textVariants}
+            className="floating-element text-h2 md:text-hero font-bold text-neutral-200 mb-6 max-w-5xl mx-auto leading-tight relative"
           >
-            {/* Button Background Animation */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-secondary-500 to-primary-500"
-              initial={{ x: '100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-
-            {/* Button Text */}
-            <span className="relative z-10 flex items-center gap-2">
-              Start Your Project
+            <span className="relative z-10">
+              We don't build websites, we create digital dimensions
+              <br />
               <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                className="text-primary-500 relative inline-block cursor-hover"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
               >
-                →
+                Where design meets code as art and science
+                <motion.div
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                />
               </motion.span>
             </span>
 
-            {/* Glow Effect */}
-            <motion.div
-              className="absolute inset-0 bg-primary-500 blur-xl opacity-30"
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.a>
-        </motion.div>
+            {/* Background Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-secondary-500/10 blur-3xl -z-10"></div>
+          </motion.h1>
+
+          {/* Enhanced Subtitle */}
+          <motion.p
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            variants={textVariants}
+            className="floating-element text-body md:text-h3 font-mono text-neutral-500 mb-12 max-w-3xl mx-auto leading-relaxed"
+          >
+            Clikxo — Designed by designers. Coded by engineers. Remembered by all.
+          </motion.p>
+
+          {/* Enhanced CTA Button */}
+          <motion.div
+            custom={2}
+            initial="hidden"
+            animate="visible"
+            variants={textVariants}
+            className="relative"
+          >
+            <motion.a
+              href="#contact"
+              className="relative inline-block bg-primary-500 text-neutral-1000 px-8 py-4 text-ui font-mono font-medium overflow-hidden cursor-hover"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {/* Button Background Animation */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-secondary-500 to-primary-500"
+                initial={{ x: '100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* Button Text */}
+              <span className="relative z-10 flex items-center gap-2">
+                Start Your Project
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </span>
+
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute inset-0 bg-primary-500 blur-xl opacity-30"
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.a>
+          </motion.div>
+        </div>
 
         {/* Enhanced Scroll Indicator */}
         <motion.div
