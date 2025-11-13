@@ -26,16 +26,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Credits */}
-          <div className="text-center">
-            <p className="text-body font-mono text-neutral-500 mb-2">
-              {translations.madeWithLove} <span className="text-primary-500">♥</span> {translations.madeInUAE}
-            </p>
-            <p className="text-caption font-mono text-neutral-500">
-              {translations.teamCredits}
-            </p>
-          </div>
-
+          
           {/* Social Links */}
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (

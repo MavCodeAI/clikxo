@@ -8,11 +8,6 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
-  i18n: {
-    locales: ['ar', 'en'],
-    defaultLocale: 'ar',
-    localeDetection: false,
-  },
 }
 
 module.exports = nextConfig

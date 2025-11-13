@@ -17,10 +17,9 @@ if (typeof window !== 'undefined') {
 
 
 export default function Portfolio() {
-  const { language } = useLanguage()
-  const t = useLanguage()
+  const { language, t } = useLanguage()
   
-  const [activeCategory, setActiveCategory] = useState('الكل')
+  const [activeCategory, setActiveCategory] = useState(t('filterAll'))
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -28,65 +27,65 @@ export default function Portfolio() {
 
   const projectRefs = useRef<(HTMLDivElement | null)[]>([])
   
-  const categories = [t.filterAll, t.filterWeb, t.filterGraphics, t.filterInteractive]
+  const categories = [t('filterAll'), t('filterWeb'), t('filterGraphics'), t('filterInteractive')]
   
   const projects = [
     {
       id: 1,
-      title: t.project1Title,
+      title: t('project1Title'),
       titleEn: 'E-Commerce Platform',
-      category: t.filterWeb,
-      description: t.project1Description,
+      category: t('filterWeb'),
+      description: t('project1Description'),
       image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
       tags: ['Next.js', 'Stripe', 'PostgreSQL'],
       color: 'from-primary-500 to-secondary-500',
     },
     {
       id: 2,
-      title: t.project2Title,
+      title: t('project2Title'),
       titleEn: 'Brand Identity',
-      category: t.filterGraphics,
-      description: t.project2Description,
+      category: t('filterGraphics'),
+      description: t('project2Description'),
       image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80',
       tags: ['Branding', 'Logo', 'UI/UX'],
       color: 'from-secondary-500 to-primary-500',
     },
     {
       id: 3,
-      title: t.project3Title,
+      title: t('project3Title'),
       titleEn: '3D Interactive Experience',
-      category: t.filterInteractive,
-      description: t.project3Description,
+      category: t('filterInteractive'),
+      description: t('project3Description'),
       image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80',
       tags: ['Three.js', 'R3F', 'WebGL'],
       color: 'from-primary-500 to-purple-500',
     },
     {
       id: 4,
-      title: t.project4Title,
+      title: t('project4Title'),
       titleEn: 'Analytics Dashboard',
-      category: t.filterWeb,
-      description: t.project4Description,
+      category: t('filterWeb'),
+      description: t('project4Description'),
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
       tags: ['React', 'D3.js', 'Real-time'],
       color: 'from-cyan-500 to-blue-500',
     },
     {
       id: 5,
-      title: t.project5Title,
+      title: t('project5Title'),
       titleEn: 'Social Media Campaign',
-      category: t.filterGraphics,
-      description: t.project5Description,
+      category: t('filterGraphics'),
+      description: t('project5Description'),
       image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&q=80',
       tags: ['Social Media', 'Motion Design'],
       color: 'from-pink-500 to-purple-500',
     },
     {
       id: 6,
-      title: t.project6Title,
+      title: t('project6Title'),
       titleEn: 'Interactive Portfolio',
-      category: t.filterInteractive,
-      description: t.project6Description,
+      category: t('filterInteractive'),
+      description: t('project6Description'),
       image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
       tags: ['GSAP', 'Framer Motion', 'Parallax'],
       color: 'from-green-500 to-teal-500',
@@ -119,7 +118,7 @@ export default function Portfolio() {
   }, [inView])
 
   const filteredProjects =
-    activeCategory === t.filterAll
+    activeCategory === t('filterAll')
       ? projects
       : projects.filter((p) => p.category === activeCategory)
 
@@ -135,10 +134,10 @@ export default function Portfolio() {
           {/* Section Title */}
           <div className="text-center mb-lg">
             <h2 className="text-h2 font-bold text-neutral-200 mb-4">
-              <span className="text-primary-500">{t.portfolioTitle}</span> {t.portfolioTitleHighlight}
+              <span className="text-primary-500">{t('portfolioTitle')}</span> {t('portfolioTitleHighlight')}
             </h2>
             <p className="text-body font-mono text-neutral-500 max-w-3xl mx-auto">
-              {t.portfolioDescription}
+              {t('portfolioDescription')}
             </p>
           </div>
 
@@ -214,7 +213,7 @@ export default function Portfolio() {
 
                   {/* View Button */}
                   <button className="inline-flex items-center gap-2 text-ui font-mono text-primary-500 hover:gap-3 transition-all">
-                    {t.viewProject}
+                    {t('viewProject')}
                     <ExternalLink size={16} />
                   </button>
                 </div>

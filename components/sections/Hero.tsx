@@ -48,7 +48,7 @@ export default function Hero() {
       transition: {
         delay: i * 0.3,
         duration: 1,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as const,
       },
     }),
   }
@@ -62,7 +62,7 @@ export default function Hero() {
       transition: {
         delay: 0.5 + i * 0.15,
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as const,
       },
     }),
   }

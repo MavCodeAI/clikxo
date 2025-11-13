@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Code2, Palette } from 'lucide-react'
@@ -34,6 +35,20 @@ export default function About() {
   
   const { t, isRTL } = useLanguage()
 
+  // Initialize skill percentages to prevent hydration mismatch
+  const [skillPercentages, setSkillPercentages] = useState<{ [key: string]: number }>({})
+
+  useEffect(() => {
+    // Set random percentages after component mounts to avoid hydration mismatch
+    const percentages: { [key: string]: number } = {}
+    teamMembers.forEach(member => {
+      member.skills.forEach(skill => {
+        percentages[skill] = Math.floor(Math.random() * 20 + 80)
+      })
+    })
+    setSkillPercentages(percentages)
+  }, [])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -52,7 +67,7 @@ export default function About() {
       rotateX: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as const,
       },
     },
   }
@@ -130,15 +145,15 @@ export default function About() {
 
                   {/* Name & Role */}
                   <h3 className="text-h3 font-bold text-neutral-200 mb-2 group-hover:text-primary-500 transition-colors cursor-hover">
-                    {t(member.name)}
+                    {t(member.name as any)}
                   </h3>
                   <p className="text-ui font-mono text-primary-500 mb-4">
-                    {t(member.role)} • {t(member.roleEn)}
+                    {t(member.role as any)} • {t((member.roleEn || member.role) as any)}
                   </p>
 
                   {/* Description */}
                   <p className="text-body font-mono text-neutral-500 leading-relaxed mb-6">
-                    {t(member.description)}
+                    {t(member.description as any)}
                   </p>
 
                   {/* Enhanced Skills with Animated Bars */}
@@ -153,14 +168,14 @@ export default function About() {
                             {skill}
                           </span>
                           <span className="text-caption font-mono text-primary-500 opacity-60">
-                            {Math.floor(Math.random() * 20 + 80)}%
+                            {skillPercentages[skill] || 85}%
                           </span>
                         </div>
                         <div className="h-1 bg-neutral-800 rounded-full overflow-hidden">
                           <motion.div
                             className="skill-bar h-full bg-gradient-to-r from-primary-500 to-secondary-500 origin-left"
                             initial={{ scaleX: 0 }}
-                            whileInView={{ scaleX: 1 }}
+                            whileInView={{ scaleX: (skillPercentages[skill] || 85) / 100 }}
                             transition={{ duration: 1, delay: skillIndex * 0.1 }}
                           />
                         </div>
