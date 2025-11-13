@@ -3,7 +3,6 @@ import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll'
 import { LanguageProvider } from '@/contexts/LanguageContext'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 const ibmArabic = IBM_Plex_Sans_Arabic({
   weight: ['400', '500', '600', '700'],
@@ -20,22 +19,22 @@ const ibmMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Clikxo | استوديو إبداعي رقمي',
-  description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية حيث يلتقي التصميم بالكود كفن وعلم',
-  keywords: ['تطوير الويب', 'تصميم جرافيك', 'Next.js', 'React', 'UAE', 'Dubai', 'Web Design', 'Clikxo'],
+  title: 'Clikxo | Creative Digital Studio',
+  description: 'We don\'t build websites, we create digital dimensions where design meets code as art and science',
+  keywords: ['Web Development', 'Graphic Design', 'Next.js', 'React', 'UAE', 'Dubai', 'Web Design', 'Clikxo'],
   authors: [{ name: 'Clikxo Studio' }],
   openGraph: {
-    title: 'Clikxo | استوديو إبداعي رقمي',
-    description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية',
+    title: 'Clikxo | Creative Digital Studio',
+    description: 'We don\'t build websites, we create digital dimensions',
     url: 'https://clikxo.com',
     siteName: 'Clikxo',
-    locale: 'ar_AE',
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Clikxo | استوديو إبداعي رقمي',
-    description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية',
+    title: 'Clikxo | Creative Digital Studio',
+    description: 'We don\'t build websites, we create digital dimensions',
   },
 }
 
@@ -45,10 +44,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ar" dir="rtl" className={`${ibmArabic.variable} ${ibmMono.variable}`}>
+    <html lang="en" dir="ltr" className={`${ibmArabic.variable} ${ibmMono.variable}`}>
       <body className="font-sans">
         <LanguageProvider>
-          <LanguageSwitcher />
           <SmoothScroll>
             {children}
           </SmoothScroll>

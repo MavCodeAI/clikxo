@@ -7,7 +7,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import ParticleBackground from '../ParticleBackground'
 import CursorEffect from '../CursorEffect'
-import { useLanguage } from '@/contexts/LanguageContext'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -15,7 +14,6 @@ if (typeof window !== 'undefined') {
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const { t } = useLanguage()
 
   useEffect(() => {
     // Enhanced GSAP grid animation
@@ -84,7 +82,7 @@ export default function Hero() {
         <div className="grid-line absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent"></div>
         <div className="grid-line absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/60 to-transparent"></div>
         <div className="grid-line absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent"></div>
-        
+
         {/* Enhanced Vertical Lines */}
         <div className="grid-line absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-secondary-500/30 to-transparent"></div>
         <div className="grid-line absolute right-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-secondary-500/30 to-transparent"></div>
@@ -101,13 +99,13 @@ export default function Hero() {
               top: `${30 + (i % 2) * 40}%`,
             }}
             animate={{
-              y: [-20, 20, -20],
-              opacity: [0.2, 0.8, 0.2],
+              y: [0, -20, 0],
+              opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
               duration: 3 + i * 0.5,
               repeat: Infinity,
-              ease: 'easeInOut',
+              delay: i * 0.2,
             }}
           />
         ))}
@@ -115,27 +113,45 @@ export default function Hero() {
 
       {/* Enhanced Content */}
       <div className="container-custom relative z-10 text-center py-xxl">
-        {/* Studio Name - Enhanced 3D Effect */}
-        <div className="mb-8 overflow-hidden perspective-1000">
-          <div className="flex justify-center gap-2 transform-style-preserve-3d">
-            {t('studioName').split('').map((letter, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={letterVariants}
-                className="text-hero font-bold text-primary-500 glow-text inline-block transform hover:scale-110 transition-transform cursor-hover"
-                style={{
-                  textShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
-                  filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))',
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
+        {/* Enhanced Logo/Brand */}
+        <motion.div
+          custom={-1}
+          initial="hidden"
+          animate="visible"
+          variants={textVariants}
+          className="mb-12"
+        >
+          <div className="flex justify-center mb-6">
+            <motion.span
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="text-2xl opacity-60 mr-3"
+            >
+              ⚡
+            </motion.span>
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold text-primary-500 glow-text"
+              style={{
+                textShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
+                filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))',
+              }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              CLIKXO
+            </motion.h1>
           </div>
-        </div>
+
+          {/* Tagline */}
+          <motion.p
+            className="text-body font-mono text-neutral-400 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+          >
+            Creative Digital Studio
+          </motion.p>
+        </motion.div>
 
         {/* Enhanced Main Headline */}
         <motion.h1
@@ -146,14 +162,14 @@ export default function Hero() {
           className="floating-element text-h2 md:text-hero font-bold text-neutral-200 mb-6 max-w-5xl mx-auto leading-tight relative"
         >
           <span className="relative z-10">
-            {t('mainHeadline')}
+            We don't build websites, we create digital dimensions
             <br />
-            <motion.span 
+            <motion.span
               className="text-primary-500 relative inline-block cursor-hover"
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              {t('subtitle')}
+              Where design meets code as art and science
               <motion.div
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
                 initial={{ scaleX: 0 }}
@@ -162,7 +178,7 @@ export default function Hero() {
               />
             </motion.span>
           </span>
-          
+
           {/* Background Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-secondary-500/10 blur-3xl -z-10"></div>
         </motion.h1>
@@ -175,7 +191,7 @@ export default function Hero() {
           variants={textVariants}
           className="floating-element text-body md:text-h3 font-mono text-neutral-500 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          {t('tagline')}
+          Clikxo — Designed by designers. Coded by engineers. Remembered by all.
         </motion.p>
 
         {/* Enhanced CTA Button */}
@@ -199,10 +215,10 @@ export default function Hero() {
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}
             />
-            
+
             {/* Button Text */}
             <span className="relative z-10 flex items-center gap-2">
-              {t('ctaButton')}
+              Start Your Project
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -228,12 +244,12 @@ export default function Hero() {
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <motion.div className="flex flex-col items-center gap-2 text-primary-500">
-            <ChevronDown 
-              size={32} 
+            <ChevronDown
+              size={32}
               className="animate-bounce"
             />
             <span className="text-caption font-mono opacity-60">
-              {t('scrollDown')}
+              Scroll Down
             </span>
           </motion.div>
         </motion.div>

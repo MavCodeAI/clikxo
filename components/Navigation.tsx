@@ -4,19 +4,17 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
-import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { t, isRTL } = useLanguage()
 
   const navItems = [
-    { key: 'home', href: '#hero' },
-    { key: 'about', href: '#about' },
-    { key: 'services', href: '#services' },
-    { key: 'portfolio', href: '#portfolio' },
-    { key: 'contact', href: '#contact' },
+    { key: 'home', href: '#hero', label: 'Home' },
+    { key: 'about', href: '#about', label: 'About' },
+    { key: 'services', href: '#services', label: 'Services' },
+    { key: 'portfolio', href: '#portfolio', label: 'Portfolio' },
+    { key: 'contact', href: '#contact', label: 'Contact' },
   ]
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function Navigation() {
                     href={item.href}
                     className="text-ui font-mono text-neutral-200 hover:text-primary-500 transition-all relative group cursor-hover"
                   >
-                    <span className="relative z-10">{t(item.key as any)}</span>
+                    <span className="relative z-10">{item.label}</span>
                     <motion.span 
                       className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500"
                       whileHover={{ width: '100%' }}
@@ -127,7 +125,7 @@ export default function Navigation() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-h3 font-sans text-neutral-200 hover:text-primary-500 transition-all cursor-hover relative group"
                   >
-                    <span className="relative z-10">{t(item.key as any)}</span>
+                    <span className="relative z-10">{item.label}</span>
                     <motion.div
                       className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full origin-left"
                       initial={{ scaleX: 0 }}

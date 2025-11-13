@@ -6,20 +6,20 @@ import { Language, translations } from '@/lib/translations'
 type LanguageContextType = {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: keyof typeof translations.ar) => string
-  translations: typeof translations.ar | typeof translations.en
+  t: (key: keyof typeof translations.en) => string
+  translations: typeof translations.en
   isRTL: boolean
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('ar')
+  const [language, setLanguage] = useState<Language>('en')
 
   useEffect(() => {
     // Load language from localStorage on mount
     const savedLanguage = localStorage.getItem('clikxo-language') as Language
-    if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
+    if (savedLanguage && savedLanguage === 'en') {
       setLanguage(savedLanguage)
     }
   }, [])
@@ -30,20 +30,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     
     // Update document direction and lang attribute
     document.documentElement.setAttribute('lang', language)
-    document.documentElement.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr')
+    document.documentElement.setAttribute('dir', 'ltr')
     
     // Update body classes for styling
     document.body.classList.remove('arabic', 'english')
-    document.body.classList.add(language === 'ar' ? 'arabic' : 'english')
+    document.body.classList.add('english')
   }, [language])
 
-  const t = (key: keyof typeof translations.ar): string => {
-    return translations[language][key] || translations.ar[key]
+  const t = (key: keyof typeof translations.en): string => {
+    return translations.en[key] || translations.en[key]
   }
 
-  const translationsObj = translations[language]
+  const translationsObj = translations.en
 
-  const isRTL = language === 'ar'
+  const isRTL = false
 
   const value: LanguageContextType = {
     language,
