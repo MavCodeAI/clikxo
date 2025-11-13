@@ -95,7 +95,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     if (inView && projectRefs.current.length > 0) {
-      projectRefs.current.forEach((ref, index) => {
+      projectRefs.current.forEach((ref) => {
         if (ref) {
           gsap.fromTo(
             ref.querySelector('.project-image'),

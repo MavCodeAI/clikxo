@@ -7,8 +7,7 @@ import { Send, Mail, Phone, MessageCircle } from 'lucide-react'
 import { useLanguage } from '../../contexts/LanguageContext'
 
 export default function Contact() {
-  const { language } = useLanguage()
-  const t = useLanguage()
+  const { t } = useLanguage()
   
   const [ref, inView] = useInView({
     triggerOnce: true,

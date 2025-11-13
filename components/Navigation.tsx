@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { t, isRTL } = useLanguage()
+  const { t } = useLanguage()
 
   const navItems = [
     { key: 'home', href: '#hero' },
