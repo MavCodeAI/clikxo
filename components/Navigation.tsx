@@ -5,13 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import type { TranslationKey } from '@/lib/translations'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { t } = useLanguage()
 
-  const navItems = [
+  const navItems: { key: TranslationKey; href: string }[] = [
     { key: 'home', href: '#hero' },
     { key: 'about', href: '#about' },
     { key: 'services', href: '#services' },
