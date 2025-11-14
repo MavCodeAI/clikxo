@@ -1,231 +1,210 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { ExternalLink } from 'lucide-react'
-import { useLanguage } from '../../contexts/LanguageContext'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
-
-
-
-
+import { useState, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, ExternalLink } from 'lucide-react'
+import { portfolioData, categories, PortfolioItem } from '@/data/portfolio'
+import { containerVariants, itemVariants } from '@/lib/animations'
 
 export default function Portfolio() {
-  const { language } = useLanguage()
-  const t = useLanguage()
-  
-  const [activeCategory, setActiveCategory] = useState('الكل')
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null)
 
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([])
-  
-  const categories = [t.filterAll, t.filterWeb, t.filterGraphics, t.filterInteractive]
-  
-  const projects = [
-    {
-      id: 1,
-      title: t.project1Title,
-      titleEn: 'E-Commerce Platform',
-      category: t.filterWeb,
-      description: t.project1Description,
-      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
-      tags: ['Next.js', 'Stripe', 'PostgreSQL'],
-      color: 'from-primary-500 to-secondary-500',
-    },
-    {
-      id: 2,
-      title: t.project2Title,
-      titleEn: 'Brand Identity',
-      category: t.filterGraphics,
-      description: t.project2Description,
-      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80',
-      tags: ['Branding', 'Logo', 'UI/UX'],
-      color: 'from-secondary-500 to-primary-500',
-    },
-    {
-      id: 3,
-      title: t.project3Title,
-      titleEn: '3D Interactive Experience',
-      category: t.filterInteractive,
-      description: t.project3Description,
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80',
-      tags: ['Three.js', 'R3F', 'WebGL'],
-      color: 'from-primary-500 to-purple-500',
-    },
-    {
-      id: 4,
-      title: t.project4Title,
-      titleEn: 'Analytics Dashboard',
-      category: t.filterWeb,
-      description: t.project4Description,
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-      tags: ['React', 'D3.js', 'Real-time'],
-      color: 'from-cyan-500 to-blue-500',
-    },
-    {
-      id: 5,
-      title: t.project5Title,
-      titleEn: 'Social Media Campaign',
-      category: t.filterGraphics,
-      description: t.project5Description,
-      image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&q=80',
-      tags: ['Social Media', 'Motion Design'],
-      color: 'from-pink-500 to-purple-500',
-    },
-    {
-      id: 6,
-      title: t.project6Title,
-      titleEn: 'Interactive Portfolio',
-      category: t.filterInteractive,
-      description: t.project6Description,
-      image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
-      tags: ['GSAP', 'Framer Motion', 'Parallax'],
-      color: 'from-green-500 to-teal-500',
-    },
-  ]
+  const filteredProjects = useMemo(() => {
+    if (selectedCategory === 'all') return portfolioData
+    return portfolioData.filter(project => project.category === selectedCategory)
+  }, [selectedCategory])
 
-  useEffect(() => {
-    if (inView && projectRefs.current.length > 0) {
-      projectRefs.current.forEach((ref) => {
-        if (ref) {
-          gsap.fromTo(
-            ref.querySelector('.project-image'),
-            {
-              y: 30,
-            },
-            {
-              y: -30,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: ref,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1,
-              },
-            }
-          )
-        }
-      })
-    }
-  }, [inView])
+  const openLightbox = (project: PortfolioItem) => {
+    setSelectedProject(project)
+  }
 
-  const filteredProjects =
-    activeCategory === t.filterAll
-      ? projects
-      : projects.filter((p) => p.category === activeCategory)
+  const closeLightbox = () => {
+    setSelectedProject(null)
+  }
 
   return (
-    <section id="portfolio" className="section-padding bg-neutral-1000">
-      <div className="container-custom">
+    <section className="py-24 bg-charcoal">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="text-center mb-16"
         >
-          {/* Section Title */}
-          <div className="text-center mb-lg">
-            <h2 className="text-h2 font-bold text-neutral-200 mb-4">
-              <span className="text-primary-500">{t.portfolioTitle}</span> {t.portfolioTitleHighlight}
-            </h2>
-            <p className="text-body font-mono text-neutral-500 max-w-3xl mx-auto">
-              {t.portfolioDescription}
-            </p>
-          </div>
-
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-xl">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-3 text-ui font-mono transition-all duration-300 ${
-                  activeCategory === category
-                    ? 'bg-primary-500 text-neutral-1000 shadow-glow-cyan'
-                    : 'bg-neutral-800 text-neutral-500 hover:bg-neutral-700 hover:text-neutral-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Projects Grid */}
-          <motion.div
-            layout
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          <motion.h2
+            variants={itemVariants}
+            className="font-heading text-h2 text-white mb-6"
           >
-            {filteredProjects.map((project, index) => (
+            Our Portfolio
+          </motion.h2>
+          <motion.p
+            variants={itemVariants}
+            className="text-body text-neutral-300 max-w-3xl mx-auto"
+          >
+            A showcase of our finest work across web development, design, and motion graphics
+          </motion.p>
+        </motion.div>
+
+        {/* Filter buttons */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          {categories.map((category) => (
+            <motion.button
+              key={category.id}
+              variants={itemVariants}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-6 py-3 rounded-sm font-semibold transition-all duration-300 ${
+                selectedCategory === category.id
+                  ? 'bg-gold text-black shadow-gold'
+                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white'
+              }`}
+            >
+              {category.label}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Portfolio grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
-                ref={(el) => {
-                  projectRefs.current[index] = el
-                }}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5 }}
-                className="group relative bg-neutral-900 border border-neutral-800 overflow-hidden hover:border-primary-500 transition-all duration-400"
+                transition={{ duration: 0.3 }}
+                className="group cursor-pointer"
+                onClick={() => openLightbox(project)}
               >
-                {/* Image with Parallax */}
-                <div className="relative h-64 overflow-hidden">
-                  <div
-                    className="project-image absolute inset-0 w-full h-[120%] bg-cover bg-center transition-all duration-400 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${project.image})` }}
-                  ></div>
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                  
-                  {/* Tags */}
-                  <div className="absolute top-4 right-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 text-caption font-mono bg-neutral-1000/80 backdrop-blur-sm text-primary-500 border border-primary-500/30"
-                      >
-                        {tag}
+                <div className="relative overflow-hidden rounded-sm bg-black shadow-luxury hover:shadow-gold transition-all duration-500">
+                  {/* Placeholder image */}
+                  <div className="aspect-[4/3] bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                    <div className="text-center text-neutral-400">
+                      <div className="w-16 h-16 bg-gold/20 rounded-sm flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl font-heading text-gold">
+                          {project.category[0].toUpperCase()}
+                        </span>
+                      </div>
+                      <p className="text-caption">Portfolio Image</p>
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="text-center">
+                      <h3 className="font-heading text-h3 text-white mb-2">
+                        {project.title}
+                      </h3>
+                      <p className="text-ui text-gold capitalize">
+                        {project.category}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Hover zoom effect */}
+                  <div className="absolute inset-0 transform scale-105 opacity-0 group-hover:opacity-20 group-hover:scale-100 transition-all duration-500 bg-gold" />
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6"
+            onClick={closeLightbox}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-charcoal max-w-4xl w-full rounded-sm shadow-luxury overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative">
+                {/* Close button */}
+                <button
+                  onClick={closeLightbox}
+                  className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Project image placeholder */}
+                <div className="aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                  <div className="text-center text-neutral-400">
+                    <div className="w-20 h-20 bg-gold/20 rounded-sm flex items-center justify-center mx-auto mb-4">
+                      <span className="text-3xl font-heading text-gold">
+                        {selectedProject.category[0].toUpperCase()}
                       </span>
-                    ))}
+                    </div>
+                    <p className="text-body">Project Preview</p>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-md">
-                  <h3 className="text-h3 font-bold text-neutral-200 mb-2 group-hover:text-primary-500 transition-colors">
-                    {language === 'ar' ? project.title : project.titleEn}
-                  </h3>
-                  <p className="text-caption font-mono text-neutral-500 mb-3 uppercase">
-                    {language === 'ar' ? project.titleEn : project.title}
-                  </p>
-                  <p className="text-body font-mono text-neutral-500 mb-4">
-                    {project.description}
+                <div className="p-8">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="font-heading text-h3 text-white mb-2">
+                        {selectedProject.title}
+                      </h3>
+                      <p className="text-gold font-semibold capitalize">
+                        {selectedProject.category}
+                      </p>
+                    </div>
+                    {selectedProject.link && (
+                      <a
+                        href={selectedProject.link}
+                        className="flex items-center gap-2 text-gold hover:text-gold/80 transition-colors"
+                      >
+                        <span className="text-ui">View Live</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+
+                  <p className="text-body text-neutral-300 mb-6 leading-relaxed">
+                    {selectedProject.description}
                   </p>
 
-                  {/* View Button */}
-                  <button className="inline-flex items-center gap-2 text-ui font-mono text-primary-500 hover:gap-3 transition-all">
-                    {t.viewProject}
-                    <ExternalLink size={16} />
-                  </button>
+                  {selectedProject.technologies && (
+                    <div>
+                      <h4 className="font-semibold text-white mb-3">Technologies Used:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.technologies.map((tech, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gold/10 text-gold text-ui rounded-sm border border-gold/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-
-                {/* Gradient Accent */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${project.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-400`}></div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

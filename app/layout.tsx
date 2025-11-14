@@ -1,42 +1,36 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
-import SmoothScroll from '@/components/SmoothScroll'
-import { LanguageProvider } from '@/contexts/LanguageContext'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+import Navigation from '@/components/ui/Navigation'
+import MouseFollower from '@/components/ui/MouseFollower'
+import ParticleEffect from '@/components/ui/ParticleEffect'
+import ComplexBackground from '@/components/ui/ComplexBackground'
+import SmoothScrollProvider from '@/components/ui/SmoothScrollProvider'
 
-const ibmArabic = IBM_Plex_Sans_Arabic({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['arabic'],
-  variable: '--font-ibm-arabic',
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-heading',
   display: 'swap',
 })
 
-const ibmMono = IBM_Plex_Mono({
-  weight: ['400', '500'],
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-ibm-mono',
+  variable: '--font-body',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Clikxo | استوديو إبداعي رقمي',
-  description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية حيث يلتقي التصميم بالكود كفن وعلم',
-  keywords: ['تطوير الويب', 'تصميم جرافيك', 'Next.js', 'React', 'UAE', 'Dubai', 'Web Design', 'Clikxo'],
-  authors: [{ name: 'Clikxo Studio' }],
+  title: 'ClikXo - Premium Digital Craftsmanship',
+  description: 'Where Code Meets Art. Luxury digital experiences crafted with precision and aesthetic excellence.',
+  keywords: ['digital agency', 'web development', 'graphic design', 'motion graphics', 'luxury design'],
+  authors: [{ name: 'ClikXo Team' }],
   openGraph: {
-    title: 'Clikxo | استوديو إبداعي رقمي',
-    description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية',
-    url: 'https://clikxo.com',
-    siteName: 'Clikxo',
-    locale: 'ar_AE',
+    title: 'ClikXo - Premium Digital Craftsmanship',
+    description: 'Where Code Meets Art. Luxury digital experiences.',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Clikxo | استوديو إبداعي رقمي',
-    description: 'نحن لا نبني مواقع، بل نصنع أبعادًا رقمية',
-  },
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#C6A667',
 }
 
 export default function RootLayout({
@@ -45,14 +39,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ar" dir="rtl" className={`${ibmArabic.variable} ${ibmMono.variable}`}>
-      <body className="font-sans">
-        <LanguageProvider>
-          <LanguageSwitcher />
-          <SmoothScroll>
-            {children}
-          </SmoothScroll>
-        </LanguageProvider>
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <body className="bg-black text-white antialiased">
+        <SmoothScrollProvider />
+        <ComplexBackground />
+        <Navigation />
+        <MouseFollower />
+        <ParticleEffect />
+        <main className="relative">
+          {children}
+        </main>
       </body>
     </html>
   )

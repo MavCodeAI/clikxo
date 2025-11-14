@@ -1,0 +1,28 @@
+{
+  "name": "ClikXo - Digital Craftsmanship",
+  "short_name": "ClikXo",
+  "description": "Where Code Meets Art. Luxury digital experiences crafted with precision and aesthetic excellence.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#C6A667",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "design"],
+  "lang": "en",
+  "dir": "ltr"
+}
